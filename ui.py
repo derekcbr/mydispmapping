@@ -87,10 +87,7 @@ class DM_User_Preferences(AddonPreferences):
 
     grayscale_dir : StringProperty(
         name="Grayscale Bmp Folder", 
-        #default="", 
-        #default=r"E:\documents\Blender\插件\实物模型\灰度图\动物\蝙蝠类", 
-        default=r"E:\documents\Blender\插件\实物模型\灰度图\动物", 
-        #default=r"E:\documents\Blender\插件\实物模型\灰度图", 
+        default="", 
         subtype='DIR_PATH')
 
 
