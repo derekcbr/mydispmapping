@@ -20,20 +20,26 @@ class Translate_OT_Col_to_New_Location(Operator):
     @classmethod
     def poll(cls, context):
         settings = bpy.context.scene.dm_misc_settings
-        mycolname = settings.collectionName
         
-        return len(mycolname) > 0
+        mycolname = settings.collectionName
+        myselectedcol = bpy.context.view_layer.active_layer_collection
+        return len(mycolname) > 0 or len(myselectedcol.name) > 0
     def execute(self, context):
-        #1.挪位置
+
+        
         miscsettings = bpy.context.scene.dm_misc_settings
         myfx = miscsettings.locx
         myfy = miscsettings.locy
         myfz = miscsettings.locz
         mycolname = miscsettings.collectionName
-        mybool = miscsettings.boolName
+        if len(mycolname) > 0:
+            myutils.translateColinCol(colname=mycolname, myloc=(myfx, myfy, myfz))
+        elif len(mycolname) == 0:
         
-        myutils.translateColinCol(colname=mycolname, myloc=(myfx, myfy, myfz))
-        
+            myselectedcol = bpy.context.view_layer.active_layer_collection
+            if len(myselectedcol.name) > 0:
+                myutils.translateColinCol(colname=myselectedcol.name, myloc=(myfx, myfy, myfz))
+
         return {'FINISHED'}
         
 class Add_OT_Non_PBR_Mat(Operator):
