@@ -24,9 +24,6 @@ class DM_PT_First_Panel(Panel):
         col = row.column(align=True)
         col.prop(settings, 'collectionName')
 
-        row = layout.row()
-        col = row.column(align=True)
-        col.prop(settings, 'boolName')
         
         row = layout.row()
         col = row.column(align=True)
@@ -38,11 +35,8 @@ class DM_PT_First_Panel(Panel):
         
         row = layout.row()        
         col = row.column(align=True)
-        col.operator("object.translatecol", text='Translate Col')
-        
-        row = layout.row()        
-        col = row.column(align=True)
-        col.operator("object.addnonpbrmat", text='Add Glass')
+        col.operator("object.translatecol", text='移动集合')
+
 
         row = layout.row()
         col = row.column(align=True)
@@ -87,7 +81,10 @@ class DM_User_Preferences(AddonPreferences):
 
     grayscale_dir : StringProperty(
         name="Grayscale Bmp Folder", 
-        default="", 
+        #default="", 
+        #default=r"E:\documents\Blender\插件\实物模型\灰度图\动物\蝙蝠类", 
+        default=r"E:\documents\Blender\插件\实物模型\灰度图\动物", 
+        #default=r"E:\documents\Blender\插件\实物模型\灰度图", 
         subtype='DIR_PATH')
 
 
