@@ -119,7 +119,7 @@ class Add_OT_DM_to_Mesh_Object(Operator):
                     
                     self.object = bpy.context.object
                     obj = bpy.context.object
-                    if obj.type == 'MESH':
+                    if obj.type == 'MESH' and obj.name.startswith("My_DM_Grid") == False:
                         self.loc_on_plane = None
                         world_mat_inv = obj.matrix_world.inverted()
                         rc_origin = world_mat_inv @ self.view_point
