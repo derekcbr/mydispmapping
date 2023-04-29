@@ -8,7 +8,7 @@ def my_dm_img_files_callback(self, context):
     items = []
     my_dmimgs_path = self.dmimgsdir
     mydmimgfiles = os.listdir(my_dmimgs_path)
-    i = 0
+    i = 1
     for file in mydmimgfiles:
         myfilename = os.path.join(my_dmimgs_path, file)
         if os.path.isfile(myfilename) and myfilename.endswith('.bmp'):
@@ -33,7 +33,7 @@ def update_dm_img_files(self, context):
             filename = file.split('.bmp')[0]
             items.append(filename)
             
-    imgname = items[int(self.dmimgenumfiles)]
+    imgname = items[int(self.dmimgenumfiles) + 1]
     handle = bpy.types.SpaceView3D.draw_handler_add(myutils.draw_callback_px, (self, context, imgname, 20), 'WINDOW', 'POST_PIXEL')
     bpy.app.timers.register(functools.partial(myutils.remove_text, handle), first_interval=1)
     pass
