@@ -41,6 +41,24 @@ class Translate_OT_Col_to_New_Location(Operator):
                 myutils.translateColinCol(colname=myselectedcol.name, myloc=(myfx, myfy, myfz))
 
         return {'FINISHED'}
+
+class Apply_OT_Obj_All_Transforms(Operator):
+    bl_label = "ApplyObjAllTransforms"
+    bl_idname = "object.applyalltransforms"
+    bl_description = "Apply all transforms"
+    
+    @classmethod
+    def poll(cls, context):
+        obj = context.active_object
+        return obj and obj.type == "MESH"
+    def execute(self, context):
+        obj = context.active_object
+        obj.select_set(True)
+        bpy.context.view_layer.objects.active = obj
+        bpy.ops.object.transform_apply(location=True, scale=True, rotation=True)        
+
+
+        return {'FINISHED'}
         
 class Add_OT_Non_PBR_Mat(Operator):
     bl_label = "AddNonPBRMat"
@@ -49,7 +67,7 @@ class Add_OT_Non_PBR_Mat(Operator):
     
     @classmethod
     def poll(cls, context):
-        obj = context.object
+        obj = context.active_object
         return obj and obj.type == "MESH"
     def execute(self, context):
         myobject = bpy.context.object
@@ -85,14 +103,15 @@ class Add_OT_DM_to_Mesh_Object(Operator):
             mydirsplitlist = mydmimgsdir[:-1].split('\\')
         else:
             mydirsplitlist = mydmimgsdir.split('\\')
-        if mydirsplitlist[-3] == '灰度图':
+        
+        if mydirsplitlist[-3] in ['灰度图', 'grayscale']:
             mysubcat01 = mydirsplitlist[-2]
             mysubcat02 = mydirsplitlist[-1]
-        elif mydirsplitlist[-2] == '灰度图':
+        elif mydirsplitlist[-2] in ['灰度图', 'grayscale']:
             mysubcat01 = mydirsplitlist[-1]
             mysubcat02 = myutils.list_dm_random_dir(mydmimgsdir, idx=-1)
         
-        elif mydirsplitlist[-1] == '灰度图':
+        elif mydirsplitlist[-1] in ['灰度图', 'grayscale']:
             
             mysubcat01 = myutils.list_dm_random_dir(mydmimgsdir, idx=-1)
             mysubcat02path = os.path.join(mydmimgsdir, mysubcat01)
@@ -100,13 +119,12 @@ class Add_OT_DM_to_Mesh_Object(Operator):
         
         else:
             return {'CANCELLED'}
-        
         mydmimgfileidx = miscsettings.dmimgenumfiles
         #if event.type == 'LEFTMOUSE' and event.value == 'PRESS':
         if event.type == 'LEFTMOUSE' and event.value == 'RELEASE':
             if context.area.type == 'VIEW_3D':
                 temp = time.time()
-                if (temp - self.t) < 0.3:
+                if True:#(temp - self.t) < 0.01:
                     
                     self.mouse_pos = event.mouse_region_x, event.mouse_region_y
                     
@@ -119,7 +137,7 @@ class Add_OT_DM_to_Mesh_Object(Operator):
                     
                     self.object = bpy.context.object
                     obj = bpy.context.object
-                    if obj.type == 'MESH':
+                    if obj.type == 'MESH' and obj.name.startswith("My_DM_Grid") == False:
                         self.loc_on_plane = None
                         world_mat_inv = obj.matrix_world.inverted()
                         rc_origin = world_mat_inv @ self.view_point

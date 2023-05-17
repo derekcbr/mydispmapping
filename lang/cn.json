@@ -1,1 +1,1 @@
-{"port": 6}
+{"p2lbl": "贴图文件配置", "dmthickness": "置换贴图厚度", "isbyrandomfile": "随机文件", "isclockwise": "顺时针方向", "dmimgsdir": "贴图子目录", "dmimgenumfiles": "贴图列表", "collectionName": "集合名称", "objecttranslatecol": "移动集合", "objectapplyalltransforms": "应用所有变换", "object.startdm": "物体表面置换贴图", "bl_Label01": "置换贴图", "bl_Label02": "置换贴图目录文件设置"}

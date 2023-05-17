@@ -1,7 +1,7 @@
 bl_info = {
     "name": "DispMapping",
     "author": "Derek Wang",
-    "version": (1, 0),
+    "version": (1, 0, 2),
     "blender": (3, 2, 0),
     "location": "N PANEL",
     "description": "Blender API 插件开发QQ交流群:735831986，微信:wx_frame3d",
@@ -22,6 +22,7 @@ classes = (
     DM_PT_Second_Panel,
     DM_User_Preferences,
     myoperator.Translate_OT_Col_to_New_Location,
+    myoperator.Apply_OT_Obj_All_Transforms,
     myoperator.Add_OT_Non_PBR_Mat,
     myoperator.Add_OT_DM_to_Mesh_Object,
     )        
